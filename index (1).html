@@ -1,94 +1,1360 @@
-<!-- 1. CAMILO PDF -->
-<div class="expo-card" data-category="pdf" data-title="camilo">
-  <div class="card-header">
-    <div class="card-title">
-      <i data-lucide="file-text" color="#ec4899"></i>
-      <h3>Camilo</h3>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Robótica IRTRA - Galería de Exposición</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Iconos Lucide -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --bg-main: #f3f0ff;
+      --card-bg: #ffffff;
+      --border-color: #e9d5ff;
+      --text-primary: #1e1b4b;
+      --text-muted: #6b21a8;
+      --neon-cyan: #06b6d4;
+      --neon-pink: #ec4899;
+      --neon-purple: #8b5cf6;
+
+      --gradient-accent: linear-gradient(
+        135deg,
+        #8b5cf6 0%,
+        #ec4899 50%,
+        #06b6d4 100%
+      );
+
+      --radius: 20px;
+
+      --shadow-subtle:
+        0 10px 25px -5px rgba(139, 92, 246, 0.12);
+
+      --shadow-hover:
+        0 20px 35px -5px rgba(236, 72, 153, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      min-height: 100vh;
+
+      padding: 3rem 1.5rem;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      transition: background-color 0.4s;
+    }
+
+    /* ==============================
+       MODO PRESENTACIÓN
+    ============================== */
+
+    body.presentation-mode {
+      background-color: #0f0728;
+    }
+
+    body.presentation-mode .expo-card:not(.focused) {
+      opacity: 0.15;
+      filter: blur(3px);
+    }
+
+    .container {
+      max-width: 1280px;
+      width: 100%;
+    }
+
+    /* ==============================
+       ENCABEZADO
+    ============================== */
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .tagline {
+      display: inline-flex;
+      align-items: center;
+
+      gap: 0.5rem;
+
+      padding: 0.5rem 1.4rem;
+
+      border-radius: 50px;
+
+      background: #f43f5e;
+      color: #ffffff;
+
+      font-size: 0.85rem;
+      font-weight: 800;
+
+      letter-spacing: 2px;
+      text-transform: uppercase;
+
+      margin-bottom: 1rem;
+
+      box-shadow:
+        0 4px 15px rgba(244, 63, 94, 0.4);
+    }
+
+    header h1 {
+      font-size: 3.8rem;
+      font-weight: 800;
+
+      background: var(--gradient-accent);
+
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      margin-bottom: 0.5rem;
+
+      letter-spacing: -1px;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+
+    /* ==============================
+       BARRA DE CONTROLES
+    ============================== */
+
+    .controls-bar {
+      display: flex;
+
+      justify-content: space-between;
+      align-items: center;
+
+      background: var(--card-bg);
+
+      border: 2px solid var(--border-color);
+
+      padding: 1rem 1.5rem;
+
+      border-radius: var(--radius);
+
+      margin-bottom: 2.5rem;
+
+      box-shadow: var(--shadow-subtle);
+
+      flex-wrap: wrap;
+
+      gap: 1rem;
+    }
+
+    /* BUSCADOR */
+
+    .search-box {
+      display: flex;
+      align-items: center;
+
+      gap: 0.5rem;
+
+      background: #faf5ff;
+
+      padding: 0.6rem 1.2rem;
+
+      border-radius: 12px;
+
+      border: 2px solid var(--border-color);
+    }
+
+    .search-box input {
+      border: none;
+      background: transparent;
+
+      outline: none;
+
+      font-family: inherit;
+
+      color: var(--text-primary);
+
+      font-size: 0.95rem;
+
+      font-weight: 600;
+    }
+
+    .search-box input::placeholder {
+      color: #a78bfa;
+    }
+
+    /* FILTROS */
+
+    .filter-btn-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .filter-btn,
+    .mode-btn {
+      background: #faf5ff;
+
+      border: 2px solid var(--border-color);
+
+      color: var(--text-muted);
+
+      padding: 0.5rem 1.2rem;
+
+      border-radius: 12px;
+
+      cursor: pointer;
+
+      font-family: inherit;
+
+      font-size: 0.85rem;
+
+      font-weight: 700;
+
+      transition: all 0.3s;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 0.4rem;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--gradient-accent);
+
+      color: #ffffff;
+
+      border-color: transparent;
+
+      box-shadow:
+        0 4px 12px rgba(139, 92, 246, 0.3);
+    }
+
+    /* BOTÓN MODO EXPOSICIÓN */
+
+    .mode-btn {
+      background: #06b6d4;
+
+      color: #ffffff;
+
+      border-color: #0891b2;
+
+      box-shadow:
+        0 4px 12px rgba(6, 182, 212, 0.3);
+    }
+
+    .mode-btn:hover {
+      background: #0891b2;
+
+      transform: translateY(-2px);
+    }
+
+    /* ==============================
+       GRID
+    ============================== */
+
+    .gallery-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(550px, 1fr));
+
+      gap: 2rem;
+    }
+
+    /* ==============================
+       TARJETAS
+    ============================== */
+
+    .expo-card {
+      background: var(--card-bg);
+
+      border: 2px solid var(--border-color);
+
+      border-radius: var(--radius);
+
+      overflow: hidden;
+
+      display: flex;
+
+      flex-direction: column;
+
+      box-shadow: var(--shadow-subtle);
+
+      transition: all 0.3s ease;
+
+      position: relative;
+    }
+
+    .expo-card:hover {
+      transform: translateY(-6px);
+
+      box-shadow: var(--shadow-hover);
+
+      border-color: var(--neon-pink);
+    }
+
+    /* ==============================
+       HEADER DE TARJETA
+    ============================== */
+
+    .card-header {
+      padding: 1.2rem 1.5rem;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      background: #faf5ff;
+
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .card-title {
+      display: flex;
+
+      align-items: center;
+
+      gap: 0.75rem;
+    }
+
+    .card-title h3 {
+      font-size: 1.2rem;
+
+      font-weight: 700;
+
+      color: var(--text-primary);
+    }
+
+    /* ==============================
+       BADGES
+    ============================== */
+
+    .badge {
+      font-size: 0.75rem;
+
+      padding: 0.3rem 0.8rem;
+
+      border-radius: 20px;
+
+      font-weight: 800;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.5px;
+    }
+
+    .badge-pdf {
+      background: #ffe4e6;
+
+      color: #e11d48;
+
+      border: 1px solid #f43f5e;
+    }
+
+    .badge-video {
+      background: #e0f2fe;
+
+      color: #0284c7;
+
+      border: 1px solid #38bdf8;
+    }
+
+    /* ==============================
+       VISTA PREVIA
+    ============================== */
+
+    .preview-box {
+      width: 100%;
+
+      height: 380px;
+
+      background: #1e1b4b;
+
+      position: relative;
+
+      overflow: hidden;
+    }
+
+    .preview-box iframe,
+    .preview-box video {
+      width: 100%;
+
+      height: 100%;
+
+      border: none;
+
+      object-fit: contain;
+    }
+
+    /* ==============================
+       FOOTER
+    ============================== */
+
+    .card-footer {
+      padding: 1rem 1.5rem;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      background: #ffffff;
+
+      border-top: 2px solid var(--border-color);
+    }
+
+    .views-counter {
+      font-size: 0.85rem;
+
+      color: var(--text-muted);
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 0.4rem;
+
+      font-weight: 700;
+    }
+
+    /* ==============================
+       BOTONES
+    ============================== */
+
+    .action-btn {
+      background: var(--gradient-accent);
+
+      border: none;
+
+      color: #ffffff;
+
+      padding: 0.5rem 1.1rem;
+
+      border-radius: 10px;
+
+      cursor: pointer;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 0.4rem;
+
+      font-size: 0.85rem;
+
+      font-weight: 700;
+
+      font-family: inherit;
+
+      transition: all 0.2s;
+
+      box-shadow:
+        0 4px 12px rgba(236, 72, 153, 0.3);
+    }
+
+    .action-btn:hover {
+      transform: scale(1.05);
+
+      box-shadow:
+        0 6px 16px rgba(236, 72, 153, 0.5);
+    }
+
+    /* ==============================
+       MENSAJE SIN RESULTADOS
+    ============================== */
+
+    .no-results {
+      display: none;
+
+      text-align: center;
+
+      padding: 4rem 1rem;
+
+      color: #7c3aed;
+
+      font-size: 1.1rem;
+
+      font-weight: 700;
+    }
+
+    /* ==============================
+       MODAL
+    ============================== */
+
+    .modal {
+      display: none;
+
+      position: fixed;
+
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+
+      background: rgba(15, 7, 40, 0.85);
+
+      backdrop-filter: blur(10px);
+
+      z-index: 1000;
+
+      justify-content: center;
+
+      align-items: center;
+
+      padding: 2rem;
+    }
+
+    .modal-content {
+      width: 90%;
+
+      height: 90%;
+
+      background: var(--card-bg);
+
+      border-radius: var(--radius);
+
+      border: 3px solid var(--neon-pink);
+
+      overflow: hidden;
+
+      position: relative;
+
+      box-shadow:
+        0 0 30px rgba(236, 72, 153, 0.5);
+    }
+
+    .modal-content iframe,
+    .modal-content video {
+      width: 100%;
+
+      height: 100%;
+
+      border: none;
+    }
+
+    .modal-content video {
+      object-fit: contain;
+
+      background: #000;
+    }
+
+    .close-modal {
+      position: absolute;
+
+      top: 15px;
+      right: 20px;
+
+      background: #f43f5e;
+
+      border: none;
+
+      color: white;
+
+      font-size: 1.2rem;
+
+      padding: 0.4rem 0.8rem;
+
+      border-radius: 8px;
+
+      cursor: pointer;
+
+      z-index: 1001;
+
+      font-weight: 800;
+
+      box-shadow:
+        0 4px 10px rgba(244, 63, 94, 0.4);
+    }
+
+    .close-modal:hover {
+      transform: scale(1.1);
+    }
+
+    /* ==============================
+       RESPONSIVE
+    ============================== */
+
+    @media (max-width: 768px) {
+
+      body {
+        padding: 2rem 1rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 {
+        font-size: 2.5rem;
+      }
+
+      header p {
+        font-size: 0.95rem;
+      }
+
+      .controls-bar {
+        flex-direction: column;
+
+        align-items: stretch;
+      }
+
+      .search-box {
+        width: 100%;
+      }
+
+      .search-box input {
+        width: 100%;
+      }
+
+      .filter-btn-group {
+        width: 100%;
+      }
+
+      .filter-btn {
+        flex: 1;
+        justify-content: center;
+      }
+
+      .mode-btn {
+        justify-content: center;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .preview-box {
+        height: 300px;
+      }
+
+      .card-footer {
+        flex-direction: column;
+
+        gap: 1rem;
+
+        align-items: stretch;
+      }
+
+      .action-btn {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- ==============================
+         ENCABEZADO
+    ============================== -->
+
+    <header>
+
+      <div class="tagline">
+        <i data-lucide="zap" size="16"></i>
+        Muestra Tecnológica
+      </div>
+
+      <h1>Robótica IRTRA</h1>
+
+      <p>
+        Exposición digital de proyectos, investigaciones y recursos multimedia
+      </p>
+
+    </header>
+
+
+    <!-- ==============================
+         CONTROLES
+    ============================== -->
+
+    <div class="controls-bar">
+
+      <!-- BUSCADOR -->
+
+      <div class="search-box">
+
+        <i
+          data-lucide="search"
+          size="16"
+          color="#6b21a8">
+        </i>
+
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Buscar documento..."
+          onkeyup="searchCards()">
+
+      </div>
+
+
+      <!-- FILTROS -->
+
+      <div class="filter-btn-group">
+
+        <button
+          class="filter-btn active"
+          onclick="filterCategory('all', this)">
+
+          Todos
+
+        </button>
+
+        <button
+          class="filter-btn"
+          onclick="filterCategory('pdf', this)">
+
+          PDFs
+
+        </button>
+
+        <button
+          class="filter-btn"
+          onclick="filterCategory('video', this)">
+
+          Videos
+
+        </button>
+
+      </div>
+
+
+      <!-- MODO EXPOSICIÓN -->
+
+      <button
+        class="mode-btn"
+        onclick="togglePresentationMode()">
+
+        <i data-lucide="tv" size="16"></i>
+
+        Modo Exposición
+
+      </button>
+
     </div>
-    <span class="badge badge-pdf">PDF</span>
-  </div>
-
-  <div class="preview-box">
-    <iframe 
-      src="Camilo.pdf#toolbar=0" 
-      title="Vista Previa Camilo">
-    </iframe>
-  </div>
-
-  <div class="card-footer">
-    <span class="views-counter" id="views-doc1">
-      <i data-lucide="eye" size="14"></i> 0 vistas
-    </span>
-
-    <button 
-      class="action-btn" 
-      onclick="openModal('Camilo.pdf', 'pdf', 'doc1', this)">
-      <i data-lucide="maximize-2" size="14"></i> Ampliar Vista
-    </button>
-  </div>
-</div>
 
 
-<!-- 2. INFOGRAFÍA PDF -->
-<div class="expo-card" data-category="pdf" data-title="infografia">
-  <div class="card-header">
-    <div class="card-title">
-      <i data-lucide="layout" color="#ec4899"></i>
-      <h3>Infografía IRTRA Petapa</h3>
+    <!-- ==============================
+         GALERÍA
+    ============================== -->
+
+    <div
+      class="gallery-grid"
+      id="galleryGrid">
+
+
+      <!-- ==========================================
+           1. CAMILO PDF
+      =========================================== -->
+
+      <div
+        class="expo-card"
+        data-category="pdf"
+        data-title="camilo">
+
+        <div class="card-header">
+
+          <div class="card-title">
+
+            <i
+              data-lucide="file-text"
+              color="#ec4899">
+            </i>
+
+            <h3>
+              Camilo
+            </h3>
+
+          </div>
+
+          <span class="badge badge-pdf">
+            PDF
+          </span>
+
+        </div>
+
+
+        <div class="preview-box">
+
+          <iframe
+            src="Camilo.pdf#toolbar=0"
+            title="Vista Previa Camilo">
+          </iframe>
+
+        </div>
+
+
+        <div class="card-footer">
+
+          <span
+            class="views-counter"
+            id="views-doc1">
+
+            <i
+              data-lucide="eye"
+              size="14">
+            </i>
+
+            0 vistas
+
+          </span>
+
+
+          <button
+            class="action-btn"
+            onclick="openModal('Camilo.pdf', 'pdf', 'doc1')">
+
+            <i
+              data-lucide="maximize-2"
+              size="14">
+            </i>
+
+            Ampliar Vista
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ==========================================
+           2. INFOGRAFÍA PDF
+      =========================================== -->
+
+      <div
+        class="expo-card"
+        data-category="pdf"
+        data-title="infografia">
+
+        <div class="card-header">
+
+          <div class="card-title">
+
+            <i
+              data-lucide="layout"
+              color="#ec4899">
+            </i>
+
+            <h3>
+              Infografía IRTRA Petapa
+            </h3>
+
+          </div>
+
+          <span class="badge badge-pdf">
+            PDF
+          </span>
+
+        </div>
+
+
+        <div class="preview-box">
+
+          <iframe
+            src="Infographic%20for%20IRTRA%20Petapa%20Robotics%20Presentation.pdf#toolbar=0"
+            title="Vista Previa Infografía">
+          </iframe>
+
+        </div>
+
+
+        <div class="card-footer">
+
+          <span
+            class="views-counter"
+            id="views-doc2">
+
+            <i
+              data-lucide="eye"
+              size="14">
+            </i>
+
+            0 vistas
+
+          </span>
+
+
+          <button
+            class="action-btn"
+            onclick="openModal(
+              'Infographic%20for%20IRTRA%20Petapa%20Robotics%20Presentation.pdf',
+              'pdf',
+              'doc2'
+            )">
+
+            <i
+              data-lucide="maximize-2"
+              size="14">
+            </i>
+
+            Ampliar Vista
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ==========================================
+           3. PROYECTO MP4
+      =========================================== -->
+
+      <div
+        class="expo-card"
+        data-category="video"
+        data-title="proyecto">
+
+        <div class="card-header">
+
+          <div class="card-title">
+
+            <i
+              data-lucide="video"
+              color="#06b6d4">
+            </i>
+
+            <h3>
+              Proyecto
+            </h3>
+
+          </div>
+
+          <span class="badge badge-video">
+            Video
+          </span>
+
+        </div>
+
+
+        <div class="preview-box">
+
+          <video
+            controls
+            preload="metadata"
+            onplay="countView('doc3')">
+
+            <source
+              src="proyecto.mp4"
+              type="video/mp4">
+
+            Tu navegador no soporta el formato de video.
+
+          </video>
+
+        </div>
+
+
+        <div class="card-footer">
+
+          <span
+            class="views-counter"
+            id="views-doc3">
+
+            <i
+              data-lucide="eye"
+              size="14">
+            </i>
+
+            0 vistas
+
+          </span>
+
+
+          <button
+            class="action-btn"
+            onclick="openModal('proyecto.mp4', 'video', 'doc3')">
+
+            <i
+              data-lucide="maximize-2"
+              size="14">
+            </i>
+
+            Pantalla Completa
+
+          </button>
+
+        </div>
+
+      </div>
+
     </div>
-    <span class="badge badge-pdf">PDF</span>
-  </div>
-
-  <div class="preview-box">
-    <iframe 
-      src="Infographic%20for%20IRTRA%20Petapa%20Robotics%20Presentation.pdf#toolbar=0" 
-      title="Vista Previa Infografía">
-    </iframe>
-  </div>
-
-  <div class="card-footer">
-    <span class="views-counter" id="views-doc2">
-      <i data-lucide="eye" size="14"></i> 0 vistas
-    </span>
-
-    <button 
-      class="action-btn" 
-      onclick="openModal('Infographic%20for%20IRTRA%20Petapa%20Robotics%20Presentation.pdf', 'pdf', 'doc2', this)">
-      <i data-lucide="maximize-2" size="14"></i> Ampliar Vista
-    </button>
-  </div>
-</div>
 
 
-<!-- 3. PROYECTO VIDEO -->
-<div class="expo-card" data-category="video" data-title="proyecto">
-  <div class="card-header">
-    <div class="card-title">
-      <i data-lucide="video" color="#06b6d4"></i>
-      <h3>Proyecto</h3>
+    <!-- MENSAJE SIN RESULTADOS -->
+
+    <div
+      class="no-results"
+      id="noResults">
+
+      No se encontraron documentos.
+
     </div>
-    <span class="badge badge-video">Video</span>
+
   </div>
 
-  <div class="preview-box">
-    <video 
-      controls 
-      preload="metadata" 
-      onplay="countView('doc3')">
-      <source src="proyecto.mp4" type="video/mp4">
-      Tu navegador no soporta el formato de video.
-    </video>
-  </div>
 
-  <div class="card-footer">
-    <span class="views-counter" id="views-doc3">
-      <i data-lucide="eye" size="14"></i> 0 vistas
-    </span>
+  <!-- ==============================
+       MODAL
+  ============================== -->
 
-    <button 
-      class="action-btn" 
-      onclick="openModal('proyecto.mp4', 'video', 'doc3', this)">
-      <i data-lucide="maximize-2" size="14"></i> Pantalla Completa
+  <div
+    class="modal"
+    id="previewModal">
+
+    <button
+      class="close-modal"
+      onclick="closeModal()">
+
+      &times;
+
     </button>
+
+
+    <div
+      class="modal-content"
+      id="modalContainer">
+
+    </div>
+
   </div>
-</div>
+
+
+  <!-- ==============================
+       JAVASCRIPT
+  ============================== -->
+
+  <script>
+
+    /* ==========================================
+       INICIALIZAR ICONOS
+    =========================================== */
+
+    lucide.createIcons();
+
+
+    /* ==========================================
+       CONTADOR DE VISTAS
+    =========================================== */
+
+    const viewsState = {
+      doc1: 0,
+      doc2: 0,
+      doc3: 0
+    };
+
+
+    function countView(id) {
+
+      viewsState[id]++;
+
+      const el =
+        document.getElementById(`views-${id}`);
+
+      if (el) {
+
+        el.innerHTML =
+          `<i data-lucide="eye" size="14"></i>
+           ${viewsState[id]} vistas`;
+
+        lucide.createIcons();
+
+      }
+
+    }
+
+
+    /* ==========================================
+       FILTROS
+    =========================================== */
+
+    function filterCategory(type, btn) {
+
+      /* Activar botón seleccionado */
+
+      document
+        .querySelectorAll('.filter-btn')
+        .forEach(b => {
+
+          b.classList.remove('active');
+
+        });
+
+      btn.classList.add('active');
+
+
+      /* Mostrar / ocultar tarjetas */
+
+      let visibleCards = 0;
+
+      document
+        .querySelectorAll('.expo-card')
+        .forEach(card => {
+
+          if (
+            type === 'all' ||
+            card.dataset.category === type
+          ) {
+
+            card.style.display = 'flex';
+
+            visibleCards++;
+
+          } else {
+
+            card.style.display = 'none';
+
+          }
+
+        });
+
+
+      /* Mensaje sin resultados */
+
+      document.getElementById('noResults').style.display =
+        visibleCards === 0 ? 'block' : 'none';
+
+    }
+
+
+    /* ==========================================
+       BUSCADOR
+    =========================================== */
+
+    function searchCards() {
+
+      const query =
+        document
+          .getElementById('searchInput')
+          .value
+          .toLowerCase()
+          .trim();
+
+
+      let visibleCards = 0;
+
+
+      document
+        .querySelectorAll('.expo-card')
+        .forEach(card => {
+
+          const title =
+            card.dataset.title.toLowerCase();
+
+          const cardText =
+            card.innerText.toLowerCase();
+
+
+          if (
+            title.includes(query) ||
+            cardText.includes(query)
+          ) {
+
+            card.style.display = 'flex';
+
+            visibleCards++;
+
+          } else {
+
+            card.style.display = 'none';
+
+          }
+
+        });
+
+
+      document.getElementById('noResults').style.display =
+        visibleCards === 0 ? 'block' : 'none';
+
+    }
+
+
+    /* ==========================================
+       MODO EXPOSICIÓN
+    =========================================== */
+
+    function togglePresentationMode() {
+
+      document.body.classList.toggle(
+        'presentation-mode'
+      );
+
+    }
+
+
+    /* ==========================================
+       TARJETAS EN MODO EXPOSICIÓN
+    =========================================== */
+
+    document
+      .querySelectorAll('.expo-card')
+      .forEach(card => {
+
+        card.addEventListener('click', () => {
+
+          if (
+            document.body.classList
+              .contains('presentation-mode')
+          ) {
+
+            document
+              .querySelectorAll('.expo-card')
+              .forEach(c => {
+
+                c.classList.remove('focused');
+
+              });
+
+            card.classList.add('focused');
+
+          }
+
+        });
+
+      });
+
+
+    /* ==========================================
+       MODAL
+    =========================================== */
+
+    const modal =
+      document.getElementById('previewModal');
+
+    const modalContainer =
+      document.getElementById('modalContainer');
+
+
+    function openModal(src, type, id) {
+
+      /* Contar vista */
+
+      countView(id);
+
+
+      /* Limpiar modal */
+
+      modalContainer.innerHTML = '';
+
+
+      /* PDF */
+
+      if (type === 'pdf') {
+
+        modalContainer.innerHTML = `
+
+          <iframe
+            src="${src}"
+            title="Documento PDF">
+          </iframe>
+
+        `;
+
+      }
+
+
+      /* VIDEO */
+
+      else if (type === 'video') {
+
+        modalContainer.innerHTML = `
+
+          <video
+            controls
+            autoplay>
+
+            <source
+              src="${src}"
+              type="video/mp4">
+
+            Tu navegador no soporta el formato de video.
+
+          </video>
+
+        `;
+
+      }
+
+
+      /* Mostrar modal */
+
+      modal.style.display = 'flex';
+
+    }
+
+
+    /* ==========================================
+       CERRAR MODAL
+    =========================================== */
+
+    function closeModal() {
+
+      modal.style.display = 'none';
+
+      /* Detener y limpiar video */
+
+      modalContainer.innerHTML = '';
+
+    }
+
+
+    /* ==========================================
+       CERRAR AL HACER CLIC FUERA
+    =========================================== */
+
+    modal.addEventListener('click', function(event) {
+
+      if (event.target === modal) {
+
+        closeModal();
+
+      }
+
+    });
+
+
+    /* ==========================================
+       CERRAR CON ESCAPE
+    =========================================== */
+
+    document.addEventListener('keydown', function(event) {
+
+      if (event.key === 'Escape') {
+
+        closeModal();
+
+      }
+
+    });
+
+  </script>
+
+</body>
+
+</html>
